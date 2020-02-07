@@ -202,6 +202,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     public virtual void BuildSomething()
     {
         Debug.Log("Heard build at" );
+       
     }
 
 
