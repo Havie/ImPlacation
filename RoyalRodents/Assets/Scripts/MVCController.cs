@@ -2,10 +2,79 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MVCController
+public class MVCController : MonoBehaviour
 {
-   public static GameObject lastClicked;
+    private static MVCController _instance;
 
-   
-   
+    public  GameObject lastClicked;
+
+    public UIBuildMenu _BuildMenu;
+
+
+    public static MVCController Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = new MVCController();
+            return _instance;
+        }
+    }
+
+
+     void Start()
+    {
+        GameObject o = GameObject.FindGameObjectWithTag("BuildMenu");
+        Debug.Log(o.ToString());
+        _BuildMenu = o.GetComponent<UIBuildMenu>();
+    }
+
+
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            Vector3 MouseRaw = Input.mousePosition;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                Debug.Log("Hit result:" + hit.collider.gameObject);
+                lastClicked = hit.collider.gameObject;
+
+                if (lastClicked.GetComponent<BuildableObject>())
+                {
+                    Debug.Log("Last Clicked is a buildingobj:" + lastClicked.name);
+                    lastClicked.GetComponent<BuildableObject>().imClicked(MouseRaw);
+                }
+                else if (UIBuildMenu.isActive2())
+                {
+                    _BuildMenu.showMenu(false, Vector3.zero);
+                }
+
+            }
+        }
+    }
+
+        public void buildSomething(string type)
+        {
+            if (lastClicked == null)
+                return;
+            print("lastClicked: " + lastClicked);
+            if (lastClicked.GetComponent<BuildableObject>())
+            {
+                Debug.Log("BuldableOBJ found");
+                lastClicked.GetComponent<BuildableObject>().BuildSomething(type);
+            }
+
+
+        }
+
+
 }
+

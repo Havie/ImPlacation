@@ -10,7 +10,7 @@ public class UIBuildMenu : MonoBehaviour
 
     public Button[] buttons;
 
-    private bool active;
+    private static bool active;
 
 
     // Start is called before the first frame update
@@ -48,6 +48,10 @@ public class UIBuildMenu : MonoBehaviour
 
 
     public bool isActive()
+    {
+        return active;
+    }
+    public static bool isActive2()
     {
         return active;
     }

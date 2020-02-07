@@ -24,16 +24,20 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     [SerializeField]
     protected BuildingState eState;
 
+    [SerializeField]
+    protected BuildingType eType;
+
     private SpriteRenderer sr;
     private SpriteRenderer srNotify;
     private SpriteRenderer srWorker;
     private UIBuildMenu _BuildMenu;
 
     private float hitpoints;
+    private GameObject _currentBuilding;
 
     protected enum BuildingState { Available, Idle, Building, Built };
 
-    protected enum BuildingType { House, Farm, Tower, Wall, TownCenter}
+    protected enum BuildingType { House, Farm, Tower, Wall, TownCenter, Vacant}
 
 
 
@@ -69,12 +73,12 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         srWorker.sprite = _emptyWorker;
 
         eState =BuildingState.Available;
+        eType = BuildingType.Vacant;
         _animator = GetComponentInChildren<Animator>();
         
 
 
         GameObject o=GameObject.FindGameObjectWithTag("BuildMenu");
-        Debug.Log(o.ToString());
         _BuildMenu = o.GetComponent<UIBuildMenu>();
     }
 
@@ -121,28 +125,10 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         }
 
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Heard Mouse");
-                Vector3 MouseRaw = Input.mousePosition;
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-                RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
-
-                    if (hit.collider != null)
-                    {
-                   // Debug.Log(hit.collider.gameObject.name);
-
-                    if ( hit.collider.gameObject.GetComponent<BuildableObject>())
-                    {
-                        Debug.Log("Matched");
-                        if (eState == BuildingState.Built)
-                        {
-
-                        }
-                        if (eState == BuildingState.Available || eState==BuildingState.Idle)
-                        {
+             if (Input.GetMouseButtonDown(0))
+         {
+           
 
                             //ALL OF THIS IS TEST
                             /* GameObject o = GameObject.FindGameObjectWithTag("Canvas");
@@ -172,37 +158,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
                              */
 
                             //now you can set the position of the ui element
-
-
-                            eState = BuildingState.Idle;
-                            _BuildMenu.showMenu(true, MouseRaw);
-                        }
-
-                    }
-                else
-                {
-                    Debug.Log("NotGameObject2:" + gameObject + " __ hit:" + hit.collider.gameObject);
-                    if (_BuildMenu.isActive())
-                        _BuildMenu.showMenu(false, MouseRaw);
-                }
-
-
-            }
-            else
-            {
-                Debug.Log("NotGameObject1");
-                if (_BuildMenu.isActive())
-                    _BuildMenu.showMenu(false, MouseRaw);
-            }
-
-
         }
-    }
-
-    public virtual void BuildSomething()
-    {
-        Debug.Log("Heard build at" );
-       
     }
 
 
@@ -210,6 +166,46 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     {
         Debug.Log("Something In Collider Range");
     }
+
+    public void imClicked(Vector2 loc)
+    {
+        if (eState == BuildingState.Built)
+        {
+
+        }
+        if (eState == BuildingState.Available || eState == BuildingState.Idle)
+        {
+            eState = BuildingState.Idle;
+            _BuildMenu.showMenu(true, loc);
+        }
+        else
+        {
+            eState = BuildingState.Idle;
+            _BuildMenu.showMenu(true, loc);
+        }
+  
+
+    }
+
+
+    public virtual void BuildSomething(string type)
+    {
+        Debug.Log("Time to Build Something type=" + type);
+        switch (type)
+        {
+            case ("house"):
+                this.gameObject.AddComponent<House>();
+                eType = BuildingType.House;
+                Debug.Log("Made a house");
+                break;
+
+            case null:
+                break;
+        }
+        _BuildMenu.showMenu(false, Vector3.zero);
+
+    }
+
 
 
 }
