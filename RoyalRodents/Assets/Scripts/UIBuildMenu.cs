@@ -38,7 +38,7 @@ public class UIBuildMenu : MonoBehaviour
 
         this.transform.position = loc;
 
-        Debug.Log("The Menu loc moves to :" + loc);
+       // Debug.Log("The Menu loc moves to :" + loc);
 
         foreach (Button b in buttons)
         {

@@ -149,7 +149,7 @@ public class CharacterControllerTMP : MonoBehaviour
     {
         if(collision.transform.GetComponent<CoinResource>())
         {
-            Debug.Log("Found COin");
+            //Debug.Log("Found COin");
             GameManager.Instance.incrementGold(1);
             Destroy(collision.gameObject);
         }

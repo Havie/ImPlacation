@@ -199,6 +199,34 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
                 sr.sprite = _stateConstruction;
                 Debug.Log("Made a house");
                 break;
+            case ("farm"):
+                this.gameObject.AddComponent<bFarm>();
+                eType = BuildingType.Farm;
+                eState = BuildingState.Building;
+                sr.sprite = _stateConstruction;
+                Debug.Log("Made a Farm");
+                break;
+            case ("wall"):
+                this.gameObject.AddComponent<bWall>();
+                eType = BuildingType.Wall;
+                eState = BuildingState.Building;
+                sr.sprite = _stateConstruction;
+                Debug.Log("Made a Wall");
+                break;
+            case ("Tower"):
+                this.gameObject.AddComponent<bTower>();
+                eType = BuildingType.Tower;
+                eState = BuildingState.Building;
+                sr.sprite = _stateConstruction;
+                Debug.Log("Made a Tower");
+                break;
+            case ("towncenter"):
+                this.gameObject.AddComponent<bHouse>();
+                eType = BuildingType.House;
+                eState = BuildingState.Building;
+                sr.sprite = _stateConstruction;
+                Debug.Log("Made a TownCenter");
+                break;
 
             case null:
                 break;
@@ -223,8 +251,29 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         if(eType== BuildingType.House)
         {
             _hitpoints+=  this.GetComponent<bHouse>().BuildingComplete();
-            GameManager.Instance.incrementVictoryPoints(1);
         }
+       else if (eType == BuildingType.Farm)
+        {
+            _hitpoints += this.GetComponent<bFarm>().BuildingComplete();
+        }
+       else if (eType == BuildingType.Wall)
+        {
+            _hitpoints += this.GetComponent<bWall>().BuildingComplete();
+        }
+       else if (eType == BuildingType.Tower)
+        {
+            _hitpoints += this.GetComponent<bTower>().BuildingComplete();
+        }
+       else if (eType == BuildingType.TownCenter)
+        {
+            _hitpoints += this.GetComponent<bTownCenter>().BuildingComplete();
+        }
+
+
+
+
+
+        GameManager.Instance.incrementVictoryPoints(1);
     }
 
     public void SetType(string type)

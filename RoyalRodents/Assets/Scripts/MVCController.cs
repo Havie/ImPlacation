@@ -10,6 +10,7 @@ public class MVCController : MonoBehaviour
 
     public UIBuildMenu _BuildMenu;
 
+    public bool checkingClicks;
 
     public static MVCController Instance
     {
@@ -25,15 +26,16 @@ public class MVCController : MonoBehaviour
      void Start()
     {
         GameObject o = GameObject.FindGameObjectWithTag("BuildMenu");
-        Debug.Log(o.ToString());
         _BuildMenu = o.GetComponent<UIBuildMenu>();
+        checkingClicks = true;
     }
 
 
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        
+        if (Input.GetMouseButtonDown(0) && checkingClicks)
         {
 
             Vector3 MouseRaw = Input.mousePosition;
@@ -44,12 +46,12 @@ public class MVCController : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("Hit result:" + hit.collider.gameObject);
+               // Debug.Log("Hit result:" + hit.collider.gameObject);
                 lastClicked = hit.collider.gameObject;
 
                 if (lastClicked.GetComponent<BuildableObject>())
                 {
-                    Debug.Log("Last Clicked is a buildingobj:" + lastClicked.name);
+                   // Debug.Log("Last Clicked is a buildingobj:" + lastClicked.name);
                     lastClicked.GetComponent<BuildableObject>().imClicked(MouseRaw);
                 }
                 else if (UIBuildMenu.isActive2())
@@ -69,16 +71,19 @@ public class MVCController : MonoBehaviour
         {
             if (lastClicked == null)
                 return;
-            print("lastClicked: " + lastClicked);
+            //print("lastClicked: " + lastClicked);
             if (lastClicked.GetComponent<BuildableObject>())
             {
-                Debug.Log("BuldableOBJ found");
+                 Debug.Log("Found Buildable Object");
                 lastClicked.GetComponent<BuildableObject>().BuildSomething(type);
             }
 
+         }
 
-        }
-
+    public void CheckClicks(bool b)
+    {
+        checkingClicks = b;
+    }
 
 }
 
