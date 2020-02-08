@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameObject.FindGameObjectWithTag("TownCenter").GetComponent<bTownCenter>().StartingBuildComplete();
+        gold = 1;
     }
 
     // Update is called once per frame
