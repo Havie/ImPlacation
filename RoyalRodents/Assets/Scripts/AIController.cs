@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIController : MonoBehaviour
+public class AIController : MonoBehaviour, IDamageable<float>
 {
 
     public Animator _Animator;
@@ -10,7 +10,9 @@ public class AIController : MonoBehaviour
     public float _MovementSpeed=2f;
 
     public float _health = 25f;
+    public float _healthMax = 25.5f;
     public float _damage = 3f;
+    public HealthBar _HealthBar;
 
     private float minDistance = 1f;
     private bool _FacingRight;
@@ -18,6 +20,30 @@ public class AIController : MonoBehaviour
     private bool _AttackDelay;
 
 
+    //Interface Stuff
+    public void Damage(float damageTaken)
+    {
+        if (_health - damageTaken > 0)
+            _health -= damageTaken;
+        else
+            _health = 0;
+
+        Debug.LogWarning("HP=" + _health);
+        UpdateHealthBar();
+    }
+
+    public void SetUpHealthBar(GameObject go)
+    {
+        _HealthBar = Instantiate(go).GetComponent<HealthBar>();
+        _HealthBar.gameObject.transform.SetParent(this.transform);
+    }
+
+    public void UpdateHealthBar()
+    {
+        if (_HealthBar)
+            _HealthBar.SetSize((_health / _healthMax));
+        Debug.LogError("AI Bugged HealthBar:" + (_health / _healthMax));
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +51,9 @@ public class AIController : MonoBehaviour
         _Animator = this.GetComponent<Animator>();
         if (!_Animator)
             Debug.LogError("AI Controller Missing Animator");
+
+        SetUpHealthBar(_HealthBar.gameObject);
+        UpdateHealthBar();
     }
 
     // Update is called once per frame
@@ -42,6 +71,10 @@ public class AIController : MonoBehaviour
                 Attack();
         }
 
+    }
+    void LateUpdate()
+    {
+        _HealthBar.transform.position = this.transform.position + new Vector3(0, 1, 0);
     }
 
 
@@ -106,4 +139,5 @@ public class AIController : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour ,IDamageable<float>
 {
     public float _Hp=100f;
+    public float _HpMax = 100f;
     public float _Move_Speed = 40f;
     public float _AttackDamage = 10f;
+    public HealthBar _HealthBar;
 
-
+    //Interface Stuff
     public void Damage(float damageTaken)
     {
         if (_Hp - damageTaken > 0)
@@ -17,6 +19,19 @@ public class PlayerStats : MonoBehaviour ,IDamageable<float>
             _Hp = 0;
 
         Debug.LogWarning("HP=" + _Hp);
+        UpdateHealthBar();
+    }
+
+    public void SetUpHealthBar(GameObject go)
+    {
+        _HealthBar = Instantiate(go).GetComponent<HealthBar>();
+        _HealthBar.gameObject.transform.SetParent(this.transform);
+    }
+
+    public void UpdateHealthBar()
+    {
+        if (_HealthBar)
+            _HealthBar.SetSize(_Hp / _HpMax);
     }
 
     // Start is called before the first frame update
@@ -24,11 +39,12 @@ public class PlayerStats : MonoBehaviour ,IDamageable<float>
     {
         _Hp = 100f;
         Debug.Log("HP=" +_Hp);
+        SetUpHealthBar(_HealthBar.gameObject);
+        UpdateHealthBar();
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        _HealthBar.transform.position = this.transform.position + new Vector3(0, 1, 0);
     }
 }

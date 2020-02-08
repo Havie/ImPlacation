@@ -471,8 +471,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Hp: 0
+  _HpMax: 100
   _Move_Speed: 40
   _AttackDamage: 10
+  _HealthBar: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+    type: 3}
 --- !u!1 &297204191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3555,6 +3558,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121616952865093471, guid: 4504865118a8f5f47a285609418fd7df,
+        type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4504865118a8f5f47a285609418fd7df, type: 3}
 --- !u!4 &1077697303 stripped
@@ -3936,6 +3945,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121616952865093471, guid: 4504865118a8f5f47a285609418fd7df,
+        type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4504865118a8f5f47a285609418fd7df, type: 3}
 --- !u!1 &1251979427
@@ -4181,6 +4196,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121616952865093471, guid: 4504865118a8f5f47a285609418fd7df,
+        type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4504865118a8f5f47a285609418fd7df, type: 3}
 --- !u!1 &1307117207
@@ -4657,6 +4678,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121616952865093471, guid: 4504865118a8f5f47a285609418fd7df,
+        type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4504865118a8f5f47a285609418fd7df, type: 3}
 --- !u!1 &1540142692
@@ -5109,6 +5136,12 @@ PrefabInstance:
       propertyPath: _stateConstruction
       value: 
       objectReference: {fileID: 21300000, guid: 1c12bda2e69611c46a3e71151ff80e84,
+        type: 3}
+    - target: {fileID: 1050882231712464340, guid: 8a7f4bb0d32b3414d8609bcdabefdaae,
+        type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
         type: 3}
     - target: {fileID: 1050882231712464341, guid: 8a7f4bb0d32b3414d8609bcdabefdaae,
         type: 3}
@@ -6042,7 +6075,10 @@ MonoBehaviour:
   _target: {fileID: 0}
   _MovementSpeed: 2
   _health: 25
+  _healthMax: 100
   _damage: 3
+  _HealthBar: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+    type: 3}
 --- !u!95 &2023339412
 Animator:
   serializedVersion: 3
@@ -6121,7 +6157,7 @@ Transform:
   m_GameObject: {fileID: 2023339410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.37362194, y: -193.27095, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
@@ -6435,5 +6471,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 121616952865093471, guid: 4504865118a8f5f47a285609418fd7df,
+        type: 3}
+      propertyPath: _HealthBar
+      value: 
+      objectReference: {fileID: 1659600318395307564, guid: 3998ea7aadd183a4cbb2c6428b2dc2d6,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4504865118a8f5f47a285609418fd7df, type: 3}

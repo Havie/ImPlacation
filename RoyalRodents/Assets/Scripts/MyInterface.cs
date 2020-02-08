@@ -18,4 +18,8 @@ public interface IMyInterface
 public interface IDamageable<T>
 {
     void Damage(T damageTaken);
+
+    void SetUpHealthBar(GameObject go);
+
+    void UpdateHealthBar();
 }

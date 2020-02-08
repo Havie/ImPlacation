@@ -19,6 +19,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     public GameObject __WorkerObject;
 
     public Animator _animator;
+    public HealthBar _HealthBar;
 
 
     [SerializeField]
@@ -34,6 +35,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
 
     [SerializeField]
     private float _hitpoints = 0;
+    private float _hitpointsMax = 0;
 
     protected enum BuildingState { Available, Idle, Building, Built };
     protected enum BuildingType { House, Farm, Tower, Wall, TownCenter, Vacant}
@@ -48,6 +50,19 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
             _hitpoints -= damageTaken;
         else
             _hitpoints = 0;
+    }
+    public void SetUpHealthBar(GameObject go)
+    {
+        _HealthBar = go.GetComponent<HealthBar>();
+    }
+
+    public void UpdateHealthBar()
+    {
+        if (_HealthBar)
+            _HealthBar.SetSize(_hitpoints / _hitpointsMax);
+
+        if (_hitpoints == 0)
+            _HealthBar.gameObject.SetActive(false);
     }
 
     public BuildableObject()
