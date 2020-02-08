@@ -213,7 +213,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
                 sr.sprite = _stateConstruction;
                 Debug.Log("Made a Wall");
                 break;
-            case ("Tower"):
+            case ("tower"):
                 this.gameObject.AddComponent<bTower>();
                 eType = BuildingType.Tower;
                 eState = BuildingState.Building;
@@ -221,8 +221,8 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
                 Debug.Log("Made a Tower");
                 break;
             case ("towncenter"):
-                this.gameObject.AddComponent<bHouse>();
-                eType = BuildingType.House;
+                this.gameObject.AddComponent<bTownCenter>();
+                eType = BuildingType.TownCenter;
                 eState = BuildingState.Building;
                 sr.sprite = _stateConstruction;
                 Debug.Log("Made a TownCenter");

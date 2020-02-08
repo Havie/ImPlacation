@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterControllerTMP controller;
-    public float moveSpeed = 40f;
+    private float moveSpeed = 40f;
 
     private float horizontalMove = 0f;
     private bool jump = false;
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        moveSpeed= this.GetComponent<PlayerStats>()._Move_Speed;
     }
 
     // Update is called once per frame

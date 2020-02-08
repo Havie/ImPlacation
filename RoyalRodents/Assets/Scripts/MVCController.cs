@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MVCController : MonoBehaviour
 {
@@ -39,19 +40,22 @@ public class MVCController : MonoBehaviour
         {
 
             Vector3 MouseRaw = Input.mousePosition;
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(MouseRaw);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
 
             if (hit.collider != null)
             {
-               // Debug.Log("Hit result:" + hit.collider.gameObject);
+               Debug.Log("Hit result:" + hit.collider.gameObject);
+                if (lastClicked == hit.collider.gameObject)
+                    return;
                 lastClicked = hit.collider.gameObject;
 
-                if (lastClicked.GetComponent<BuildableObject>())
+                if (lastClicked.GetComponent<BuildableObject>() || lastClicked.GetComponent<Button>())
                 {
                    // Debug.Log("Last Clicked is a buildingobj:" + lastClicked.name);
+                   
                     lastClicked.GetComponent<BuildableObject>().imClicked(MouseRaw);
                 }
                 else if (UIBuildMenu.isActive2())
@@ -71,7 +75,7 @@ public class MVCController : MonoBehaviour
         {
             if (lastClicked == null)
                 return;
-            //print("lastClicked: " + lastClicked);
+            print("lastClicked: " + lastClicked +" in BuildSomething");
             if (lastClicked.GetComponent<BuildableObject>())
             {
                  Debug.Log("Found Buildable Object");
