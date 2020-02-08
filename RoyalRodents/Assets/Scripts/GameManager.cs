@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 
     private static GameManager _instance;
-    public int gold = 1;
-
+    public int _gold = 1;
+    public int _victoryPoints;
+    public TextMeshProUGUI _VictoryText;
+    public TextMeshProUGUI _GoldText;
 
     public static GameManager Instance
     {
@@ -40,7 +44,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GameObject.FindGameObjectWithTag("TownCenter").GetComponent<bTownCenter>().StartingBuildComplete();
-        gold = 1;
+        _gold = 1;
+        _victoryPoints = 0;
+        UpdateVictoryPoint();
+        UpdateGold();
     }
 
     // Update is called once per frame
@@ -51,8 +58,32 @@ public class GameManager : MonoBehaviour
 
     public void incrementGold(int amnt)
     {
-        gold += amnt;
+        _gold += amnt;
+        UpdateGold();
     }
 
-
+    public void incrementVictoryPoints(int amnt)
+    {
+        _victoryPoints += amnt;
+        if (_victoryPoints > 5)
+            youWin();
+    }
+    public void UpdateVictoryPoint()
+    {
+        if(_VictoryText!=null)
+        {
+            _VictoryText.text = _victoryPoints.ToString();
+        }
+    }
+    public void UpdateGold()
+    {
+        if(_GoldText)
+        {
+            _GoldText.text = _gold.ToString();
+        }
+    }
+    public void youWin()
+    {
+        Debug.Log("You WOn!");
+    }
 }

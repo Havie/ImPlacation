@@ -74,6 +74,7 @@ public class MVCController : MonoBehaviour
             {
                 Debug.Log("BuldableOBJ found");
                 lastClicked.GetComponent<BuildableObject>().BuildSomething(type);
+                GameManager.Instance.incrementVictoryPoints(1);
             }
 
 

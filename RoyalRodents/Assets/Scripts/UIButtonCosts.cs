@@ -36,7 +36,7 @@ public class UIButtonCosts : MonoBehaviour
 
     public void UpdateCosts()
     {
-        currentGold = GameManager.Instance.gold;
+        currentGold = GameManager.Instance._gold;
         if (text!=null)
         {
             text.text = currentGold.ToString() + "/" + cost;
