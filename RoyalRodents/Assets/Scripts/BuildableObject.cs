@@ -101,7 +101,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
                     srNotify.sprite = _buildingHammer;
                     srWorker.sprite = _emptyWorker;
                     srNotify.enabled = true;
-                    srWorker.enabled = true;
+                   // srWorker.enabled = true;
                     _animator.SetBool("Building", true);
                     break;
                 }
@@ -116,7 +116,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
             case BuildingState.Built:
                 {
                     srNotify.enabled = false;
-                    srWorker.enabled = true;
+                  //  srWorker.enabled = true;
                     _animator.SetBool("Notify", false);
                     _animator.SetBool("Building", false);
                     break;
@@ -223,6 +223,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         if(eType== BuildingType.House)
         {
             _hitpoints+=  this.GetComponent<bHouse>().BuildingComplete();
+            GameManager.Instance.incrementVictoryPoints(1);
         }
     }
 

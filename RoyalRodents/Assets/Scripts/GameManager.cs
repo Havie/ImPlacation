@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public int _victoryPoints;
     public TextMeshProUGUI _VictoryText;
     public TextMeshProUGUI _GoldText;
+    public Image _WinImg;
+    public Animator _WinAnimator;
+    public Button _ButtonQuit;
 
     public static GameManager Instance
     {
@@ -48,12 +51,16 @@ public class GameManager : MonoBehaviour
         _victoryPoints = 0;
         UpdateVictoryPoint();
         UpdateGold();
+        _WinAnimator=_WinImg.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Z))
+            incrementVictoryPoints(1);
+        if (Input.GetKeyDown(KeyCode.X))
+            incrementGold(1);
     }
 
     public void incrementGold(int amnt)
@@ -65,7 +72,8 @@ public class GameManager : MonoBehaviour
     public void incrementVictoryPoints(int amnt)
     {
         _victoryPoints += amnt;
-        if (_victoryPoints > 5)
+        UpdateVictoryPoint();
+        if (_victoryPoints >= 5)
             youWin();
     }
     public void UpdateVictoryPoint()
@@ -85,5 +93,21 @@ public class GameManager : MonoBehaviour
     public void youWin()
     {
         Debug.Log("You WOn!");
+        if(_WinAnimator)
+        {
+            _WinAnimator.SetTrigger("PlayAnim");
+        }
+        StartCoroutine(QuitMenu());
+    }
+    IEnumerator QuitMenu()
+    {
+        yield return new WaitForSeconds(5);
+        if(_ButtonQuit)
+            _ButtonQuit.gameObject.SetActive(true);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
