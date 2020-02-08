@@ -58,6 +58,10 @@ public class MVCController : MonoBehaviour
                 }
 
             }
+            else if (UIBuildMenu.isActive2())
+            {
+                _BuildMenu.showMenu(false, Vector3.zero);
+            }
         }
     }
 

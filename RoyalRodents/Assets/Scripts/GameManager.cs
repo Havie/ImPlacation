@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
 
     private static GameManager _instance;
-    public int gold = 0;
+    public int gold = 1;
 
 
     public static GameManager Instance
@@ -19,6 +19,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            //if not, set instance to this
+            _instance = this;
+        }
+        //If instance already exists and it's not this:
+        else if (_instance != this)
+        {
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +46,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void incrementGold(int amnt)
+    {
+        gold += amnt;
     }
 
 

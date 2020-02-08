@@ -8,6 +8,7 @@ public class UIButtonCosts : MonoBehaviour
     public int cost;
     public int currentGold;
     public TextMeshProUGUI text;
+    MVCController controller;
 
     public Color bad = Color.red;
     public Color good = Color.black;
@@ -15,24 +16,45 @@ public class UIButtonCosts : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject o = GameObject.FindGameObjectWithTag("MVC");
+        if(o)
+        {
+            if (o.GetComponent<MVCController>())
+                controller = o.GetComponent<MVCController>();
+            else
+                Debug.LogError("UI Costs cant find MVC Controller");
+        }
+       
         text=  this.gameObject.transform.GetComponent<TextMeshProUGUI>();
         UpdateCosts();
     }
 
      void Update()
     {
-        
+        UpdateCosts();
     }
 
     public void UpdateCosts()
     {
         currentGold = GameManager.Instance.gold;
-        text.text = currentGold.ToString() + "/" + cost;
-        if (currentGold < cost)
+        if (text!=null)
         {
-            text.color = bad;
+            text.text = currentGold.ToString() + "/" + cost;
+            if (currentGold < cost)
+            {
+                text.color = bad;
+            }
+            else
+                text.color = good;
         }
         else
-            text.color = good;
+            Debug.LogError("UI Costs cant find Text");
     }
+    
+    public void ApproveCosts(string type)
+    {
+        if(currentGold>=cost)
+           controller.buildSomething(type);
+    }
+
 }

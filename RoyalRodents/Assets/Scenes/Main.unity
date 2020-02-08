@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 297204193}
   m_Layer: 0
   m_Name: MVC Controller
-  m_TagString: Untagged
+  m_TagString: MVC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -346,7 +346,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &297204193
 MonoBehaviour:
@@ -533,6 +533,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 2
+  currentGold: 0
+  text: {fileID: 0}
+  bad: {r: 1, g: 0, b: 0, a: 1}
+  good: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &523724629
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +708,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 1
+  currentGold: 0
+  text: {fileID: 0}
+  bad: {r: 1, g: 0, b: 0, a: 1}
+  good: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &541410281
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +724,6 @@ GameObject:
   - component: {fileID: 541410285}
   - component: {fileID: 541410284}
   - component: {fileID: 541410283}
-  - component: {fileID: 541410286}
   m_Layer: 5
   m_Name: Button (4)
   m_TagString: Untagged
@@ -828,19 +835,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541410281}
   m_CullTransparentMesh: 0
---- !u!114 &541410286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541410281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b7eb6bf290d4644a7f95a7785fa9be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
 --- !u!1 &603163984
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1006,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 5
+  currentGold: 0
+  text: {fileID: 0}
+  bad: {r: 1, g: 0, b: 0, a: 1}
+  good: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &617180422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1050882231712464169, guid: 8a7f4bb0d32b3414d8609bcdabefdaae,
@@ -1201,6 +1199,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 3
+  currentGold: 0
+  text: {fileID: 0}
+  bad: {r: 1, g: 0, b: 0, a: 1}
+  good: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &804835498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2297,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 4
+  currentGold: 0
+  text: {fileID: 0}
+  bad: {r: 1, g: 0, b: 0, a: 1}
+  good: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &928923535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,8 +2384,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 297204193}
-        m_MethodName: buildSomething
+      - m_Target: {fileID: 523724633}
+        m_MethodName: ApproveCosts
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2802,6 +2808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac83a22e8dd3984cb94fcd3f35029df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 0
 --- !u!4 &1015704530
 Transform:
   m_ObjectHideFlags: 0
@@ -2814,7 +2821,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1099797708
 GameObject:
