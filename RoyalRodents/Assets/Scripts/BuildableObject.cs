@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BuildableObject : MonoBehaviour, IDamageable<float>
 {
     public Sprite _statedefault;
-    public Sprite _stateBuilding;
+    public Sprite _stateConstruction;
     public Sprite _stateDamaged;
     public Sprite _stateDestroyed;
     public Sprite _onHover;
@@ -32,7 +32,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     private SpriteRenderer srWorker;
     private UIBuildMenu _BuildMenu;
 
-    private float hitpoints;
+    private float _hitpoints = 0;
     private GameObject _currentBuilding;
 
     protected enum BuildingState { Available, Idle, Building, Built };
@@ -45,10 +45,10 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     //interface stuff
     public void Damage(float damageTaken)
     {
-        if (hitpoints - damageTaken > 0)
-            hitpoints -= damageTaken;
+        if (_hitpoints - damageTaken > 0)
+            _hitpoints -= damageTaken;
         else
-            hitpoints = 0;
+            _hitpoints = 0;
     }
 
     public BuildableObject()
@@ -196,6 +196,8 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
             case ("house"):
                 this.gameObject.AddComponent<House>();
                 eType = BuildingType.House;
+                eState = BuildingState.Building;
+                sr.sprite = _stateConstruction;
                 Debug.Log("Made a house");
                 break;
 
@@ -203,9 +205,27 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
                 break;
         }
         _BuildMenu.showMenu(false, Vector3.zero);
+        StartCoroutine(BuildCoroutine());
+
+
 
     }
 
+    IEnumerator BuildCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        BuildComplete();
+
+    }
+
+    public void BuildComplete()
+    {
+        eState = BuildingState.Built;
+        if(eType== BuildingType.House)
+        {
+            _hitpoints+=  this.GetComponent<House>().BuildingComplete();
+        }
+    }
 
 
 }

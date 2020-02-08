@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class House :MonoBehaviour
 {
-    public Sprite _building;
     private Sprite _built;
-    private float _hitpoints;
+    private float _hitpoints = 50;
 
 
 
@@ -20,14 +19,20 @@ public class House :MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _building = Resources.Load<Sprite>("TmpAssests/House");
-        this.transform.GetComponent<SpriteRenderer>().sprite = _building;
+        _built = Resources.Load<Sprite>("TmpAssests/House");
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public float BuildingComplete()
+    {
+        this.transform.GetComponent<SpriteRenderer>().sprite = _built;
+        return _hitpoints;
     }
 
    
