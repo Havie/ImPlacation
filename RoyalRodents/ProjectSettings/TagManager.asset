@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BuildMenu
   - Canvas
+  - TownCenter
   layers:
   - Default
   - TransparentFX

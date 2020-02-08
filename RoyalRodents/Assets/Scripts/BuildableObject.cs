@@ -32,11 +32,10 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     private SpriteRenderer srWorker;
     private UIBuildMenu _BuildMenu;
 
+    [SerializeField]
     private float _hitpoints = 0;
-    private GameObject _currentBuilding;
 
     protected enum BuildingState { Available, Idle, Building, Built };
-
     protected enum BuildingType { House, Farm, Tower, Wall, TownCenter, Vacant}
 
 
@@ -173,7 +172,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         {
 
         }
-        if (eState == BuildingState.Available || eState == BuildingState.Idle)
+       else if (eState == BuildingState.Available || eState == BuildingState.Idle)
         {
             eState = BuildingState.Idle;
             _BuildMenu.showMenu(true, loc);
@@ -194,7 +193,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         switch (type)
         {
             case ("house"):
-                this.gameObject.AddComponent<House>();
+                this.gameObject.AddComponent<bHouse>();
                 eType = BuildingType.House;
                 eState = BuildingState.Building;
                 sr.sprite = _stateConstruction;
@@ -223,9 +222,22 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         eState = BuildingState.Built;
         if(eType== BuildingType.House)
         {
-            _hitpoints+=  this.GetComponent<House>().BuildingComplete();
+            _hitpoints+=  this.GetComponent<bHouse>().BuildingComplete();
         }
     }
 
+    public void SetType(string type)
+    {
+        switch (type)
+        {
+            case ("TownCenter"):
+                {
+                    eType = BuildingType.TownCenter;
+                    break;
+                }
+        }
+
+        eState = BuildingState.Built;
+    }
 
 }
