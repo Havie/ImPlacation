@@ -13,8 +13,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI _VictoryText;
     public TextMeshProUGUI _GoldText;
     public Image _WinImg;
+    public Image _LoseImg;
     public Animator _WinAnimator;
+    public Animator _LoseAnimator;
     public Button _ButtonQuit;
+    public Image _SplashScreen;
+    private bool _firstClick;
 
     public static GameManager Instance
     {
@@ -52,6 +56,8 @@ public class GameManager : MonoBehaviour
         UpdateVictoryPoint();
         UpdateGold();
         _WinAnimator=_WinImg.GetComponent<Animator>();
+        _LoseAnimator = _LoseImg.GetComponent<Animator>();
+        _SplashScreen.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -61,6 +67,15 @@ public class GameManager : MonoBehaviour
             incrementVictoryPoints(1);
         if (Input.GetKeyDown(KeyCode.X))
             incrementGold(1);
+
+        if(!_firstClick)
+        {
+            if(Input.anyKeyDown)
+            {
+                _SplashScreen.gameObject.SetActive(false);
+                _firstClick = true;
+            }
+        }
     }
 
     public void incrementGold(int amnt)
@@ -102,6 +117,10 @@ public class GameManager : MonoBehaviour
     public void youLose()
     {
         Debug.Log("You lost");
+        if(_LoseAnimator)
+        {
+            _LoseAnimator.SetTrigger("PlayAnim");
+        }
 
         StartCoroutine(QuitMenu());
     }

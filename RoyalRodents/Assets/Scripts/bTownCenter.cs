@@ -19,7 +19,7 @@ public class bTownCenter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _built = Resources.Load<Sprite>("TmpAssests/TownCenter");
+        _built = Resources.Load<Sprite>("TmpAssests/Alex/monolith restored6");
 
     }
 

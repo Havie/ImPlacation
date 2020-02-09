@@ -19,7 +19,7 @@ public class bHouse :MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _built = Resources.Load<Sprite>("TmpAssests/House");
+        _built = Resources.Load<Sprite>("TmpAssests/Alex/monolith restored_y");
        
     }
 

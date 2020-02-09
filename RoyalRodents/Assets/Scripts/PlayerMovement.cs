@@ -54,6 +54,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Attack();
         }
+        if(Input.GetMouseButton(1))
+        {
+            Heal();
+        }
     }
 
     private void FixedUpdate()
@@ -114,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log("Found :" + hit.collider.gameObject.name);
+           // Debug.Log("Found :" + hit.collider.gameObject.name);
             AIController ai = hit.collider.GetComponent<AIController>();
             if (ai)
             {
@@ -133,5 +137,16 @@ public class PlayerMovement : MonoBehaviour
         isDead = true;
         _animator.SetTrigger("Dead");
         GameManager.Instance.youLose();
+    }
+
+    public void Heal()
+    {
+        if(GameManager.Instance._gold>0)
+        {
+            this.GetComponent<PlayerStats>().Damage(-_damage);
+            GameManager.Instance.incrementGold(-1);
+            _animator.SetTrigger("Dead");
+
+        }
     }
 }
