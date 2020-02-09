@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _AttackDelay;
     private bool _isAttacking;
+    private bool _isHealing;
     private float _damage;
 
 
@@ -143,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(GameManager.Instance._gold>0)
         {
-            this.GetComponent<PlayerStats>().Damage(-_damage);
+            this.GetComponent<PlayerStats>().Damage(-5);
             GameManager.Instance.incrementGold(-1);
             _animator.SetTrigger("Dead");
 
