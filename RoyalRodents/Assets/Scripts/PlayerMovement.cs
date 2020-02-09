@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
             else
                 _startPos -= new Vector3(1, 0, 0);
         }
-        Debug.LogError(_startPos);
+       
         //Define a Layer mask to Ignore all items ON that layer.
         int _LayerMask = ~(LayerMask.GetMask("Default"));
         RaycastHit2D hit = Physics2D.Raycast(_startPos, _ourDir, 0.75f, _LayerMask);
@@ -97,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
         //Drawing a Ray doesnt work?
        //Debug.DrawRay(_startPos, _ourDir, Color.red);
 
-        Debug.Log("Hit Dis:" + hit.distance);
+       //  Debug.Log("Hit Dis:" + hit.distance);
+
         if (hit.collider != null)
         {
             Debug.Log("Found :" + hit.collider.gameObject.name);

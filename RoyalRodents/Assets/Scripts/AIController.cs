@@ -7,14 +7,17 @@ public class AIController : MonoBehaviour, IDamageable<float>
 
     public Animator _Animator;
     public GameObject _target;
-    public float _MovementSpeed=2f;
+    public float _MovementSpeed = 2f;
 
     public float _health = 25f;
     public float _healthMax = 25.5f;
+    //Wild way to write a getter/setter in initialization ? unsure if i like this, looksy messy
     public float _damage = 3f;
     public HealthBar _HealthBar;
 
     public Vector3 testGoalPos;
+
+    public GameObject _skull;
 
     private float minDistance = 1f;
     private bool _FacingRight;
@@ -28,7 +31,10 @@ public class AIController : MonoBehaviour, IDamageable<float>
         if (_health - damageTaken > 0)
             _health -= damageTaken;
         else
+        {
             _health = 0;
+            Die();
+        }
 
        // Debug.LogWarning("HP=" + _health);
         UpdateHealthBar();
@@ -38,6 +44,7 @@ public class AIController : MonoBehaviour, IDamageable<float>
     {
         _HealthBar = Instantiate(go).GetComponent<HealthBar>();
         _HealthBar.gameObject.transform.SetParent(this.transform);
+        
     }
 
     public void UpdateHealthBar()
@@ -54,6 +61,7 @@ public class AIController : MonoBehaviour, IDamageable<float>
             Debug.LogError("AI Controller Missing Animator");
         _health = 25.5f;
         _healthMax = 25.5f;
+        _damage = 3f;
         SetUpHealthBar(_HealthBar.gameObject);
         UpdateHealthBar();
     }
@@ -147,7 +155,25 @@ public class AIController : MonoBehaviour, IDamageable<float>
         _isAttacking = false;
         _AttackDelay = false;
     }
-
+    public void Die()
+    {
+        //Play an Anim
+        _Animator.SetTrigger("Dead");
+        StartCoroutine(Death());
+    }
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(1f);
+        if (_skull)
+        {
+       _target=    Instantiate(_skull, this.transform.position, Quaternion.identity);
+            Debug.Log("SkullMade@" + _target.transform.position);
+        }
+        else
+            Debug.LogWarning("noSkull");
+        
+        Destroy(this.gameObject);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.GetComponent<PlayerMovement>())
