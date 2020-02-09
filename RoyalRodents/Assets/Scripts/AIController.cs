@@ -14,6 +14,8 @@ public class AIController : MonoBehaviour, IDamageable<float>
     public float _damage = 3f;
     public HealthBar _HealthBar;
 
+    public Vector3 testGoalPos;
+
     private float minDistance = 1f;
     private bool _FacingRight;
     private bool _isAttacking;
@@ -28,7 +30,7 @@ public class AIController : MonoBehaviour, IDamageable<float>
         else
             _health = 0;
 
-        Debug.LogWarning("HP=" + _health);
+       // Debug.LogWarning("HP=" + _health);
         UpdateHealthBar();
     }
 
@@ -42,7 +44,6 @@ public class AIController : MonoBehaviour, IDamageable<float>
     {
         if (_HealthBar)
             _HealthBar.SetSize((_health / _healthMax));
-        Debug.LogError("AI Bugged HealthBar:" + (_health / _healthMax));
     }
 
     // Start is called before the first frame update
@@ -51,7 +52,8 @@ public class AIController : MonoBehaviour, IDamageable<float>
         _Animator = this.GetComponent<Animator>();
         if (!_Animator)
             Debug.LogError("AI Controller Missing Animator");
-
+        _health = 25.5f;
+        _healthMax = 25.5f;
         SetUpHealthBar(_HealthBar.gameObject);
         UpdateHealthBar();
     }
@@ -66,6 +68,7 @@ public class AIController : MonoBehaviour, IDamageable<float>
             if (Mathf.Abs(transform.position.x - _goalPos.x) >= minDistance)
             {
                 MoveToTarget(_goalPos);
+                testGoalPos = _goalPos;
             }
             else
                 Attack();
@@ -83,20 +86,44 @@ public class AIController : MonoBehaviour, IDamageable<float>
         if (!_isAttacking)
         {
 
-            //Debug.Log("Goal Pos =" + pos);
-            transform.position += pos.normalized * Time.deltaTime * _MovementSpeed;
+            if (pos.x > 0)
+            {
+                if (pos.x > transform.position.x)
+                {
+                    transform.position += pos.normalized * Time.deltaTime * _MovementSpeed;
+                  //  Debug.LogError("case1");
+                    if (!_FacingRight)
+                        Flip();
+                }
+                else if (pos.x < transform.position.x)
+                {
+                    transform.position -= pos.normalized * Time.deltaTime * _MovementSpeed;
+                   // Debug.LogError("case2");
+                    if (_FacingRight)
+                        Flip();
+                }
+
+            }
+            else if (pos.x <= 0)
+            {
+                if (pos.x > transform.position.x)
+                {
+                    transform.position -= pos.normalized * Time.deltaTime * _MovementSpeed;
+                    //Debug.LogError("case3");
+                    if (!_FacingRight)
+                        Flip();
+                }
+                else if (pos.x < transform.position.x)
+                {
+                    transform.position += pos.normalized * Time.deltaTime * _MovementSpeed;
+                   // Debug.LogError("case4");
+                    if (_FacingRight)
+                        Flip();
+                }
+            }
             _Animator.SetBool("IsMoving", true);
         }
-            if (pos.x > 0 && !_FacingRight)
-            {
-                Flip();
-            }
-            // Otherwise if the input is moving  left and the AI is facing right...
-            else if (pos.x < 0 && _FacingRight)
-            {
-                Flip();
-            }
-        
+            
 
     }
     public void Attack()
@@ -126,6 +153,8 @@ public class AIController : MonoBehaviour, IDamageable<float>
         if (collision.transform.GetComponent<PlayerMovement>())
         {
             _target = collision.gameObject;
+            //MAJOR HACK needs fixing:
+            this.transform.GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 

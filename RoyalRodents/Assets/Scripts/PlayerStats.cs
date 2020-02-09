@@ -18,7 +18,7 @@ public class PlayerStats : MonoBehaviour ,IDamageable<float>
         else
             _Hp = 0;
 
-        Debug.LogWarning("HP=" + _Hp);
+        //Debug.LogWarning("HP=" + _Hp);
         UpdateHealthBar();
     }
 

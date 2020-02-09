@@ -47,7 +47,7 @@ public class MVCController : MonoBehaviour
 
             if (hit.collider != null)
             {
-               Debug.Log("Hit result:" + hit.collider.gameObject);
+              // Debug.Log("Hit result:" + hit.collider.gameObject);
                 if (lastClicked == hit.collider.gameObject)
                     return;
                 lastClicked = hit.collider.gameObject;
