@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour ,IDamageable<float>
 {
-    public float _Hp=100f;
+    public float _Hp=50f;
     public float _HpMax = 100f;
     public float _Move_Speed = 40f;
     public float _AttackDamage = 10f;
@@ -16,7 +16,12 @@ public class PlayerStats : MonoBehaviour ,IDamageable<float>
         if (_Hp - damageTaken > 0)
             _Hp -= damageTaken;
         else
+        {
             _Hp = 0;
+            //Super slop::
+            this.GetComponent<PlayerMovement>().Die();
+            
+        }
 
         //Debug.LogWarning("HP=" + _Hp);
         UpdateHealthBar();
@@ -37,7 +42,7 @@ public class PlayerStats : MonoBehaviour ,IDamageable<float>
     // Start is called before the first frame update
     void Start()
     {
-        _Hp = 100f;
+        _Hp = 50f;
         Debug.Log("HP=" +_Hp);
         SetUpHealthBar(_HealthBar.gameObject);
         UpdateHealthBar();

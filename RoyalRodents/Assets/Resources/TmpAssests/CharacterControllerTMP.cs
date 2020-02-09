@@ -149,7 +149,7 @@ public class CharacterControllerTMP : MonoBehaviour
     {
         if(collision.transform.GetComponent<CoinResource>())
         {
-            if (collision.transform.GetComponent<CoinResource>().isActive())
+           // if (collision.transform.GetComponent<CoinResource>().isActive())
             {
                 GameManager.Instance.incrementGold(1);
                 Destroy(collision.gameObject);

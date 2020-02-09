@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterControllerTMP controller;
+    public Animator _animator;
+    
     private float _moveSpeed = 40f;
 
     private float horizontalMove = 0f;
@@ -15,11 +17,19 @@ public class PlayerMovement : MonoBehaviour
     private bool _AttackDelay;
     private bool _isAttacking;
     private float _damage;
+
+
+
+    public bool isDead;
+
+
     // Start is called before the first frame update
     void Start()
     {
         _moveSpeed= this.GetComponent<PlayerStats>()._Move_Speed;
         _damage = this.GetComponent<PlayerStats>()._AttackDamage;
+       _animator = this.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -48,23 +58,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // move our character
-        controller.Move(horizontalMove *Time.fixedDeltaTime, crouch, jump);
-        jump = false;
+        if (!isDead)
+        {
+            // move our character
+            if (horizontalMove != 0)
+                _animator.SetBool("IsMoving", true);
+            else
+                _animator.SetBool("IsMoving", false);
+
+            controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+            jump = false;
+        }
     }
 
     public void Attack()
     {
         if (!_AttackDelay)
         {
-
             _isAttacking = true;
-
-            // _Animator.SetTrigger("Attack");
-
-   
-
-                StartCoroutine(AttackEnd());
+            _animator.SetTrigger("Attack");
+            StartCoroutine(AttackEnd());
         }
 
     }
@@ -114,4 +127,11 @@ public class PlayerMovement : MonoBehaviour
         _AttackDelay = false;
     }
 
+
+    public void Die()
+    {
+        isDead = true;
+        _animator.SetTrigger("Dead");
+        GameManager.Instance.youLose();
+    }
 }

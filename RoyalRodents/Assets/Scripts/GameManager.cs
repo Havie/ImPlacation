@@ -99,6 +99,12 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(QuitMenu());
     }
+    public void youLose()
+    {
+        Debug.Log("You lost");
+
+        StartCoroutine(QuitMenu());
+    }
     IEnumerator QuitMenu()
     {
         yield return new WaitForSeconds(5);
