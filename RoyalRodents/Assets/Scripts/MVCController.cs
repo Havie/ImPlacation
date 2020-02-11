@@ -56,7 +56,8 @@ public class MVCController : MonoBehaviour
                 {
                    // Debug.Log("Last Clicked is a buildingobj:" + lastClicked.name);
                    
-                    lastClicked.GetComponent<BuildableObject>().imClicked(MouseRaw);
+                    lastClicked.GetComponent<BuildableObject>().imClicked();
+                    _BuildMenu.showMenu(true, MouseRaw);
                 }
                 else if (UIBuildMenu.isActive2())
                 {

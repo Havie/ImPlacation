@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BuildableObject : MonoBehaviour, IDamageable<float>
 {
     public Sprite _statedefault;
+    public Sprite _stateHighlight;
     public Sprite _stateConstruction;
     public Sprite _stateDamaged;
     public Sprite _stateDestroyed;
@@ -99,8 +100,15 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
     // Update is called once per frame
     void Update()
     {
-
-        switch(eState)
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            this.GetComponent<SpriteRenderer>().sprite = _stateHighlight;
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            this.GetComponent<SpriteRenderer>().sprite = _statedefault;
+        }
+        switch (eState)
         {
             case BuildingState.Available:
                 {
@@ -181,7 +189,7 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
         Debug.Log("Something In Collider Range");
     }
 
-    public void imClicked(Vector2 loc)
+    public void imClicked()
     {
         if (eState == BuildingState.Built)
         {
@@ -190,12 +198,12 @@ public class BuildableObject : MonoBehaviour, IDamageable<float>
        else if (eState == BuildingState.Available || eState == BuildingState.Idle)
         {
             eState = BuildingState.Idle;
-            _BuildMenu.showMenu(true, loc);
+            //_BuildMenu.showMenu(true, loc);
         }
         else
         {
             eState = BuildingState.Idle;
-            _BuildMenu.showMenu(true, loc);
+            //_BuildMenu.showMenu(true, loc);
         }
   
 
